@@ -1,0 +1,14 @@
+# Python related
+__pycache__/
+*.py[cod]
+*.pyc
+
+# Pipenv related
+Pipfile.lock
+
+# Data folder
+data/*
+!data/README.md
+
+# vim files
+Session.vim
