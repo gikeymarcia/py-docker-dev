@@ -21,7 +21,7 @@ build:
 # run built docker container
 run *opt:
     # docker run {{ opt }} -p 4000:80 -v data:/usr/src/app/data pydev
-    docker run {{ opt }} -v $(pwd)/data:/usr/src/app/data pydev
+    docker run {{ opt }} -v $(pwd):/usr/src/app pydev
 
 # login to the built container
 login:
