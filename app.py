@@ -3,6 +3,10 @@ from bs4 import BeautifulSoup
 from io import StringIO
 import os
 
+def clean_context(context):
+    # Remove '[edit]' from the context string
+    return context.replace('[edit]', '').strip()
+
 def list_files():
     # Print the current working directory
     print(f"Current Working Directory: {os.getcwd()}")
@@ -32,6 +36,7 @@ def extract_tables_with_context(file_path):
     for i, table in enumerate(tables):
         # Attempt to find the title attribute or a nearby header for context
         title = table.get('title') or table.find_previous(['h1', 'h2', 'h3', 'h4', 'h5', 'h6']).get_text(strip=True)
+        title = clean_context(title)
 
         # Parsing each table with Pandas and converting to a DataFrame
         df = pd.read_html(StringIO(str(table)))[0]
