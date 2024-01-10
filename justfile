@@ -19,5 +19,10 @@ build:
     docker build -t pydev .
 
 # run built docker container
-run:
-    docker run -p 4000:80 -v data:/usr/src/app/data pydev
+run *opt:
+    # docker run {{ opt }} -p 4000:80 -v data:/usr/src/app/data pydev
+    docker run {{ opt }} -v $(pwd)/data:/usr/src/app/data pydev
+
+# login to the built container
+login:
+    docker exec -it pydev bash

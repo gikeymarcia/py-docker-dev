@@ -1,5 +1,7 @@
-pandas
+# bs4 libraries
 beautifulsoup4
-requests
+lxml
+
+#  pandas libraries
+pandas
 openpyxl
-xlrd
