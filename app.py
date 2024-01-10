@@ -17,11 +17,10 @@ def list_files():
         for file in files:
             print(f" - {file}")
 
-def extract_tables_from_html(file_path):
+def extract_tables_with_context(file_path):
     # Reading the HTML file
     with open(file_path, 'r') as html_file:
         content = html_file.read()
-        print(content)
 
     # Using BeautifulSoup to parse HTML content
     soup = BeautifulSoup(content, 'lxml')
@@ -31,23 +30,27 @@ def extract_tables_from_html(file_path):
     extracted_tables = []
 
     for i, table in enumerate(tables):
+        # Attempt to find the title attribute or a nearby header for context
+        title = table.get('title') or table.find_previous(['h1', 'h2', 'h3', 'h4', 'h5', 'h6']).get_text(strip=True)
+
         # Parsing each table with Pandas and converting to a DataFrame
         df = pd.read_html(StringIO(str(table)))[0]
-        extracted_tables.append(df)
+        extracted_tables.append((title, df))
 
-        # Optional: Save each table as a CSV file
-        df.to_csv(f'data/table_{i}.csv', index=False)
+        # Pretty-print the context and the table
+        print(f"Context: {title}")
+        print(df)
 
-        # Save each table as an Excel file
-        df.to_excel(f'data/table_{i}.xlsx', engine='openpyxl')
+        # Save each table as an Excel file using the title or index as filename
+        filename = f"data/{title or f'table_{i}'}.xlsx"
+        df.to_excel(filename, engine='openpyxl')
 
     return extracted_tables
 
 if __name__ == "__main__":
-    print('hello from app.py')
     list_files()
     file_path = 'data/input.html'
-    tables = extract_tables_from_html(file_path)
+    tables = extract_tables_with_context(file_path)
 
     # Just for demonstration: print the first table
     if tables:
