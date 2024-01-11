@@ -21,6 +21,10 @@ def list_files():
         for file in files:
             print(f" - {file}")
 
+# TODO: break apart the extract_tables_with_context function so it -> List[(title, df)]
+# separate function to write the df to excel files
+# separate function to show the contents of extracted tables
+
 def extract_tables_with_context(file_path):
     # Reading the HTML file
     with open(file_path, 'r') as html_file:
@@ -57,6 +61,7 @@ if __name__ == "__main__":
     file_path = 'data/input.html'
     tables = extract_tables_with_context(file_path)
 
+    # TODO: remove this demo with full view of extraxted tables
     # Just for demonstration: print the first table
     if tables:
         print("First Extracted Table:")

@@ -1,8 +1,12 @@
 # Dockerized Python App
 
-In the past I've struggled to make Python apps that are easy to share with collaboratrs because the development environment is hard to sync between each developer.
+In the past I've struggled to make Python apps that are easy to share with
+collaboratrs because the development environment is hard to sync between each
+developer.
 
-To completely get around this issue I've began a new approach. Do not base development on the  host of the user. Instead, define a docker container and use the `just` runner so developers can simply.
+To completely get around this issue I've began a new approach. Do not base
+development on the  host of the user. Instead, define a docker container and
+use the `just` runner so developers can simply.
 
 ```bash
 just build      # build the docker container
