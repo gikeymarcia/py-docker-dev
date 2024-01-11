@@ -14,15 +14,24 @@ export JUST_LOG := log
 l:
     just --list --unsorted
 
-# build docker image
+# Build docker image
 build:
-    docker build -t pydev .
+    docker build -t pydev:latest .
 
-# run built docker container
+# Run docker container
 run *opt:
-    # docker run {{ opt }} -p 4000:80 -v data:/usr/src/app/data pydev
     docker run {{ opt }} -v $(pwd):/usr/src/app pydev
 
-# login to the built container
-login:
-    docker exec -it pydev bash
+# Show all images and continers
+inspect *opt:
+    docker images
+    docker ps --all
+
+# # BROKEN: Login to the built container
+# login:
+#     docker exec -it pydev bash
+
+# remove generated data
+clean:
+    docker images prune
+    sudo rm -v ./data/*.xlsx
