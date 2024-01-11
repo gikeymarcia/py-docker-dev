@@ -16,7 +16,7 @@ l:
 
 # Build docker image
 build:
-    docker build -t pydev:latest .
+    docker build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) -t pydev:latest .
 
 # Run docker container
 run *opt:
@@ -34,4 +34,4 @@ inspect *opt:
 # remove generated data
 clean:
     docker images prune
-    sudo rm -v ./data/*.xlsx
+    rm -v ./data/*.xlsx
